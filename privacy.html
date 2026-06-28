@@ -1,57 +1,390 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>GingerBox Privacy Policy</title>
+    <meta name="description" content="Privacy Policy for GingerBox, a recipe and ingredient management app." />
+    <meta name="theme-color" content="#FFF7ED" />
+    <style>
+        :root {
+            --bg: #fff7ed;
+            --bg-soft: #fbefe0;
+            --paper: rgba(255, 253, 248, 0.82);
+            --paper-solid: #fffdf8;
+            --ink: #3f2718;
+            --muted: #7b6758;
+            --ginger: #7a431d;
+            --line: rgba(117, 74, 38, 0.14);
+            --leaf: #7fa760;
+            --shadow: 0 24px 70px rgba(96, 57, 26, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: ui-rounded, "Apple SD Gothic Neo", "Pretendard", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--ink);
+            background:
+                    radial-gradient(circle at 20% 8%, rgba(255, 255, 255, .96), transparent 23rem),
+                    radial-gradient(circle at 82% 0%, rgba(255, 221, 177, .45), transparent 25rem),
+                    linear-gradient(180deg, #fffaf3 0%, var(--bg) 48%, var(--bg-soft) 100%);
+            line-height: 1.68;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .wrap {
+            width: min(880px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        header {
+            min-height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            letter-spacing: .02em;
+            color: var(--ginger);
+            font-size: 21px;
+        }
+
+        .brand img {
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+            box-shadow: 0 8px 18px rgba(96, 57, 26, .14);
+        }
+
+        nav {
+            display: flex;
+            gap: 18px;
+            color: var(--muted);
+            font-size: 15px;
+            font-weight: 800;
+        }
+
+        nav a:hover {
+            color: var(--ginger);
+        }
+
+        main {
+            padding: 34px 0 72px;
+        }
+
+        .hero {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+
+        .app-icon {
+            width: 112px;
+            height: 112px;
+            border-radius: 26px;
+            display: block;
+            margin: 0 auto 18px;
+            box-shadow:
+                    0 20px 44px rgba(96, 57, 26, .16),
+                    0 2px 0 rgba(255, 255, 255, .8) inset;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 13px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            background: rgba(255,255,255,.7);
+            color: var(--ginger);
+            font-size: 14px;
+            font-weight: 850;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 99px;
+            background: var(--leaf);
+            box-shadow: 10px 0 0 #e0b65d;
+        }
+
+        h1 {
+            margin: 18px 0 8px;
+            font-size: clamp(38px, 7vw, 64px);
+            line-height: 1;
+            letter-spacing: -0.055em;
+            font-weight: 950;
+        }
+
+        .updated {
+            margin: 0;
+            color: var(--muted);
+            font-weight: 750;
+        }
+
+        .policy-card {
+            margin-top: 34px;
+            padding: clamp(24px, 5vw, 46px);
+            border: 1px solid var(--line);
+            border-radius: 34px;
+            background: var(--paper);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(18px);
+        }
+
+        .summary {
+            padding: 18px 20px;
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            background: rgba(255,255,255,.66);
+            color: var(--muted);
+            font-weight: 680;
+            margin-bottom: 30px;
+        }
+
+        section {
+            padding: 26px 0;
+            border-top: 1px solid var(--line);
+        }
+
+        section:first-of-type {
+            border-top: 0;
+            padding-top: 0;
+        }
+
+        h2 {
+            margin: 0 0 10px;
+            font-size: clamp(22px, 3vw, 28px);
+            line-height: 1.2;
+            letter-spacing: -0.025em;
+            color: #3f2718;
+        }
+
+        p {
+            margin: 0 0 13px;
+            color: var(--muted);
+            font-weight: 650;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        ul {
+            margin: 12px 0 0;
+            padding: 0;
+            list-style: none;
+            display: grid;
+            gap: 10px;
+        }
+
+        li {
+            position: relative;
+            padding: 12px 14px 12px 38px;
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: rgba(255,255,255,.52);
+            color: var(--muted);
+            font-weight: 680;
+        }
+
+        li::before {
+            content: "";
+            position: absolute;
+            left: 16px;
+            top: 21px;
+            width: 8px;
+            height: 8px;
+            border-radius: 99px;
+            background: var(--leaf);
+        }
+
+        .contact {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 46px;
+            padding: 0 18px;
+            border-radius: 999px;
+            background: var(--ginger);
+            color: #fff8ee;
+            font-weight: 900;
+            box-shadow: 0 15px 28px rgba(122, 67, 29, .18);
+            margin-top: 4px;
+        }
+
+        footer {
+            padding: 28px 0 44px;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            font-size: 14px;
+            font-weight: 700;
+            border-top: 1px solid var(--line);
+        }
+
+        @media (max-width: 620px) {
+            .wrap {
+                width: min(100% - 28px, 880px);
+            }
+
+            header {
+                align-items: flex-start;
+                padding-top: 18px;
+            }
+
+            nav {
+                flex-wrap: wrap;
+                justify-content: flex-end;
+                gap: 12px;
+                font-size: 14px;
+            }
+
+            main {
+                padding-top: 26px;
+            }
+
+            .policy-card {
+                border-radius: 28px;
+            }
+
+            footer {
+                flex-direction: column;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Privacy Policy</h1>
+<header class="wrap">
+    <a class="brand" href="/" aria-label="GingerBox home">
+        <img src="app-icon.png" alt="" />
+        <span>gingerbox</span>
+    </a>
+    <nav aria-label="Navigation">
+        <a href="/">Home</a>
+        <a href="mailto:support@gingerbox.app">Contact</a>
+    </nav>
+</header>
 
-    <p>Last updated: June 2026</p>
+<main class="wrap">
+    <div class="hero">
+        <img class="app-icon" src="app-icon.png" alt="GingerBox app icon" />
+        <div class="eyebrow">
+            <span class="dot" aria-hidden="true"></span>
+            Privacy Policy
+        </div>
+        <h1>Privacy Policy</h1>
+        <p class="updated">Last updated: June 2026</p>
+    </div>
 
-    <h2>Overview</h2>
-    <p>
-        GingerBox is a recipe and ingredient management application.
-        Most data is stored locally on the user's device.
-    </p>
+    <article class="policy-card">
+        <div class="summary">
+            GingerBox is designed as a local-first recipe and ingredient management app. Most app data stays on your device unless you choose to use optional features such as Google Drive backup.
+        </div>
 
-    <h2>Information We Collect</h2>
-    <p>
-        GingerBox does not require account registration.
-    </p>
+        <section>
+            <h2>Overview</h2>
+            <p>
+                GingerBox is a recipe and ingredient management application that helps you save recipes, manage ingredients, track expiry dates, and organize shopping lists.
+            </p>
+            <p>
+                The app does not require account registration. Most data is stored locally on your device.
+            </p>
+        </section>
 
-    <p>
-        If you choose to enable analytics, anonymous usage information may be collected through Firebase Analytics.
-    </p>
+        <section>
+            <h2>Information We Collect</h2>
+            <p>
+                GingerBox does not require you to create an account or provide personal profile information to use the main app features.
+            </p>
+            <p>
+                If you choose to enable analytics, anonymous usage information may be collected through Firebase Analytics to help us understand how the app is used and improve the user experience.
+            </p>
+            <p>
+                Diagnostic crash information may be collected through Firebase Crashlytics to help improve app stability and fix errors.
+            </p>
+        </section>
 
-    <p>
-        To improve app stability, diagnostic crash information may be collected through Firebase Crashlytics.
-    </p>
+        <section>
+            <h2>Recipe, Ingredient, and Shopping Data</h2>
+            <p>
+                Recipe data, ingredient data, shopping lists, and app settings are stored locally on your device unless you choose to back them up to Google Drive.
+            </p>
+            <p>
+                GingerBox does not operate its own server for storing your recipe or ingredient data.
+            </p>
+        </section>
 
-    <h2>Google Drive Backup</h2>
-    <p>
-        GingerBox provides optional backup and restore features using Google Drive.
-        Data is uploaded only when the user explicitly initiates a backup.
-    </p>
+        <section>
+            <h2>Google Drive Backup and Restore</h2>
+            <p>
+                GingerBox provides optional backup and restore features using Google Drive. Backup data is uploaded only when you explicitly start a backup.
+            </p>
+            <p>
+                Restore data is accessed only when you choose to restore a backup from Google Drive.
+            </p>
+        </section>
 
-    <h2>Data Storage</h2>
-    <p>
-        Recipe data, ingredient data, shopping lists, and application settings are stored locally on the user's device unless the user chooses to back them up to Google Drive.
-    </p>
+        <section>
+            <h2>Third-Party Services</h2>
+            <p>
+                GingerBox may use the following third-party services to provide optional features, analytics, diagnostics, and backup functionality:
+            </p>
+            <ul>
+                <li>Google Firebase Analytics</li>
+                <li>Google Firebase Crashlytics</li>
+                <li>Google Drive API</li>
+                <li>Google Firebase Remote Config</li>
+            </ul>
+        </section>
 
-    <h2>Third-Party Services</h2>
-    <ul>
-        <li>Google Firebase Analytics</li>
-        <li>Google Firebase Crashlytics</li>
-        <li>Google Drive API</li>
-    </ul>
+        <section>
+            <h2>Data Control</h2>
+            <p>
+                Because most GingerBox data is stored on your device, deleting the app may also delete locally stored app data from that device.
+            </p>
+            <p>
+                If you created a Google Drive backup, you can manage or delete the backup file from your Google Drive account.
+            </p>
+        </section>
 
-    <h2>Contact</h2>
-    <p>
-        For privacy-related questions, please contact:
-        support@gingerbox.app
-    </p>
+        <section>
+            <h2>Changes to This Policy</h2>
+            <p>
+                We may update this Privacy Policy from time to time. When we make changes, we will update the “Last updated” date at the top of this page.
+            </p>
+        </section>
 
+        <section>
+            <h2>Contact</h2>
+            <p>
+                If you have any questions about this Privacy Policy or GingerBox privacy practices, please contact us.
+            </p>
+            <a class="contact" href="mailto:support@gingerbox.app">support@gingerbox.app</a>
+        </section>
+    </article>
+</main>
+
+<footer class="wrap">
+    <span>© 2026 GingerBox</span>
+    <span>support@gingerbox.app</span>
+</footer>
 </body>
 </html>
