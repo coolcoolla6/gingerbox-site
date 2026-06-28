@@ -1,14 +1,394 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>GingerBox</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>GingerBox – Recipe & Ingredient Manager</title>
+    <meta name="description" content="GingerBox helps you save recipes, manage ingredients, track expiry dates, and organize shopping lists in one cozy box." />
+    <meta property="og:title" content="GingerBox – Recipe & Ingredient Manager" />
+    <meta property="og:description" content="Recipes, ingredients, and shopping lists in one cozy box." />
+    <meta property="og:image" content="/app-icon.png" />
+    <meta name="theme-color" content="#FFF7ED" />
+    <style>
+        :root {
+            --bg: #fff7ed;
+            --bg-soft: #fbefe0;
+            --paper: rgba(255, 253, 248, 0.78);
+            --ink: #3f2718;
+            --muted: #7b6758;
+            --ginger: #7a431d;
+            --line: rgba(117, 74, 38, 0.14);
+            --leaf: #7fa760;
+            --shadow: 0 24px 70px rgba(96, 57, 26, 0.12);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: ui-rounded, "Apple SD Gothic Neo", "Pretendard", "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            color: var(--ink);
+            background:
+                    radial-gradient(circle at 20% 10%, rgba(255, 255, 255, .95), transparent 23rem),
+                    radial-gradient(circle at 80% 0%, rgba(255, 221, 177, .45), transparent 25rem),
+                    linear-gradient(180deg, #fffaf3 0%, var(--bg) 48%, var(--bg-soft) 100%);
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .wrap {
+            width: min(960px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        header {
+            height: 76px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 900;
+            letter-spacing: .02em;
+            color: var(--ginger);
+            font-size: 21px;
+        }
+
+        .brand img {
+            width: 34px;
+            height: 34px;
+            border-radius: 9px;
+            box-shadow: 0 8px 18px rgba(96, 57, 26, .14);
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            color: var(--muted);
+            font-size: 15px;
+            font-weight: 750;
+        }
+
+        nav a:hover {
+            color: var(--ginger);
+        }
+
+        .hero {
+            min-height: calc(100vh - 76px);
+            display: grid;
+            place-items: center;
+            text-align: center;
+            padding: 40px 0 80px;
+        }
+
+        .hero-card {
+            width: min(720px, 100%);
+            padding: clamp(34px, 7vw, 64px);
+            border: 1px solid var(--line);
+            border-radius: 36px;
+            background: var(--paper);
+            box-shadow: var(--shadow);
+            backdrop-filter: blur(18px);
+        }
+
+        .app-icon {
+            width: clamp(132px, 26vw, 204px);
+            height: clamp(132px, 26vw, 204px);
+            border-radius: 38px;
+            display: block;
+            margin: 0 auto 26px;
+            box-shadow:
+                    0 24px 50px rgba(96, 57, 26, .16),
+                    0 2px 0 rgba(255, 255, 255, .8) inset;
+        }
+
+        .eyebrow {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 8px 13px;
+            border: 1px solid var(--line);
+            border-radius: 999px;
+            color: var(--ginger);
+            background: rgba(255,255,255,.66);
+            font-size: 14px;
+            font-weight: 850;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 99px;
+            background: var(--leaf);
+            box-shadow: 10px 0 0 #e0b65d;
+        }
+
+        h1 {
+            margin: 18px 0 14px;
+            font-size: clamp(45px, 8vw, 82px);
+            line-height: .95;
+            letter-spacing: -0.055em;
+            font-weight: 950;
+        }
+
+        .subtitle {
+            margin: 0 auto;
+            max-width: 560px;
+            color: var(--muted);
+            font-size: clamp(18px, 2.5vw, 23px);
+            line-height: 1.55;
+            font-weight: 650;
+        }
+
+        .actions {
+            margin-top: 32px;
+            display: flex;
+            justify-content: center;
+            gap: 13px;
+            flex-wrap: wrap;
+        }
+
+        .button {
+            min-height: 52px;
+            padding: 0 22px;
+            border-radius: 999px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 900;
+            border: 1px solid transparent;
+            transition: transform .18s ease, box-shadow .18s ease, background .18s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .primary {
+            color: #fff8ee;
+            background: var(--ginger);
+            box-shadow: 0 15px 28px rgba(122, 67, 29, .22);
+        }
+
+        .secondary {
+            color: var(--ginger);
+            background: rgba(255,255,255,.74);
+            border-color: var(--line);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-top: 34px;
+        }
+
+        .feature {
+            border: 1px solid var(--line);
+            border-radius: 22px;
+            padding: 18px;
+            background: rgba(255,255,255,.48);
+            text-align: left;
+        }
+
+        .feature strong {
+            display: block;
+            font-size: 16px;
+            margin-bottom: 6px;
+            color: #4b2c1b;
+        }
+
+        .feature span {
+            display: block;
+            color: var(--muted);
+            font-size: 14px;
+            line-height: 1.45;
+            font-weight: 650;
+        }
+
+        .privacy {
+            padding: 76px 0;
+            border-top: 1px solid var(--line);
+        }
+
+        .privacy-box {
+            border-radius: 30px;
+            border: 1px solid var(--line);
+            background: rgba(255,255,255,.58);
+            padding: clamp(26px, 5vw, 42px);
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .privacy h2 {
+            margin: 0 0 8px;
+            font-size: clamp(25px, 4vw, 36px);
+            letter-spacing: -0.03em;
+        }
+
+        .privacy p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.65;
+            font-weight: 650;
+        }
+
+        footer {
+            padding: 28px 0 44px;
+            color: var(--muted);
+            display: flex;
+            justify-content: space-between;
+            gap: 14px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 720px) {
+            header {
+                height: 68px;
+            }
+
+            nav {
+                gap: 14px;
+                font-size: 14px;
+            }
+
+            .hero {
+                min-height: auto;
+                padding: 32px 0 56px;
+            }
+
+            .hero-card {
+                padding: 30px 20px;
+                border-radius: 30px;
+            }
+
+            .features {
+                grid-template-columns: 1fr;
+            }
+
+            .feature {
+                text-align: center;
+            }
+
+            .privacy-box {
+                grid-template-columns: 1fr;
+            }
+
+            .privacy-box .button {
+                width: 100%;
+            }
+
+            footer {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 440px) {
+            .wrap {
+                width: min(100% - 28px, 960px);
+            }
+
+            .brand span {
+                display: none;
+            }
+
+            .actions .button {
+                width: 100%;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>GingerBox</h1>
-    <p>Recipe & Ingredient Manager</p>
+<header class="wrap">
+    <a class="brand" href="/" aria-label="GingerBox home">
+        <img src="app-icon.png" alt="" />
+        <span>gingerbox</span>
+    </a>
+    <nav aria-label="Navigation">
+        <a href="#features">Features</a>
+        <a href="/privacy">Privacy</a>
+        <a href="mailto:support@gingerbox.app">Contact</a>
+    </nav>
+</header>
 
-    <p>
-        <a href="./privacy.html">Privacy Policy</a>
-    </p>
+<main>
+    <section class="hero wrap">
+        <div class="hero-card">
+            <img class="app-icon" src="app-icon.png" alt="GingerBox app icon" />
+
+            <div class="eyebrow">
+                <span class="dot" aria-hidden="true"></span>
+                Recipe & Ingredient Manager
+            </div>
+
+            <h1>GingerBox</h1>
+
+            <p class="subtitle">
+                Recipes, ingredients, expiry dates, and shopping lists — all tucked into one cozy little box.
+            </p>
+
+            <div class="actions">
+                <a class="button primary" href="https://play.google.com/store/apps/details?id=app.gingerbox">
+                    Get it on Google Play
+                </a>
+                <a class="button secondary" href="/privacy">
+                    Privacy Policy
+                </a>
+            </div>
+
+            <div class="features" id="features">
+                <div class="feature">
+                    <strong>Save recipes</strong>
+                    <span>Keep favorite recipes organized with categories, tags, and notes.</span>
+                </div>
+                <div class="feature">
+                    <strong>Manage ingredients</strong>
+                    <span>Track what you have in the fridge, freezer, or pantry.</span>
+                </div>
+                <div class="feature">
+                    <strong>Plan shopping</strong>
+                    <span>Turn missing ingredients into a simple shopping list.</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="privacy wrap">
+        <div class="privacy-box">
+            <div>
+                <h2>Simple, cozy, and local-first.</h2>
+                <p>
+                    GingerBox is made for keeping your kitchen notes tidy without making things complicated.
+                    Read the privacy policy for details about data and permissions.
+                </p>
+            </div>
+            <a class="button secondary" href="/privacy">Read Privacy Policy</a>
+        </div>
+    </section>
+</main>
+
+<footer class="wrap">
+    <span>© 2026 GingerBox</span>
+    <span>support@gingerbox.app</span>
+</footer>
 </body>
 </html>
